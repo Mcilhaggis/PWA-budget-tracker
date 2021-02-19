@@ -19,7 +19,7 @@ The application will then console log the url in the terminal that you will need
 Server listening on: http://localhost:8080 then enter this into a browser of your choice.
 
 ### Screenshots
-![Screenshot of the Budget Tracker](/images/screenshot-1.png "Screenshot of Budget Tracker")
+![Screenshot of the Budget Tracker](public/images/screenshot-1.png "Screenshot of Budget Tracker")
 
 
 ## URL
