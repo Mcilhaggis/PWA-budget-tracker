@@ -34,7 +34,10 @@ tr:nth-child(even) {
 
 .total {
   font-size: 150%;
-  text-decoration: underline;
+  color: white;
+  background-color: grey;
+
+
 }
 
 .form {
