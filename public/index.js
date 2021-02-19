@@ -153,5 +153,34 @@ document.querySelector("#sub-btn").onclick = function () {
 };
 
 document.querySelector("#clear-btn").onclick = function () {
-  clearDatabase()
+  clearButton()
 };
+
+
+
+// Delete all 
+
+function clearButton () {
+  fetch("/api/transaction", {
+      method: "DELETE"
+    })
+      .then(function(response) {
+        if (response.status !== 200) {
+          console.log("Error! Status Code: " + response.status);
+          return;
+        }
+        clearTransactions();
+      })
+      .catch(function(err) {
+        console.log("Fetch Error:", err);
+      });
+  }
+
+function clearDatabase() {
+  const deleteTransactions = document.getElementById("tbody");
+  deleteTransactions.innerHTML = "";
+  location.reload();
+}
+
+
+

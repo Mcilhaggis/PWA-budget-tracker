@@ -60,18 +60,20 @@ function checkDatabase() {
     }
 };
 
-function clearDatabase() {
-    var db = request.result
-    console.log(db)
-    var transaction = db.transaction(["pending"], "readwrite");
-    var objectStore = transaction.objectStore("pending");
-    console.log(objectStore)
-    var objectStoreRequest = objectStore.clear();
+// function clearDatabase() {
+//     var db = request.result
+//     console.log(db)
+//     var transaction = db.transaction(["pending"], "readwrite");
+//     var objectStore = transaction.objectStore("pending");
+//     console.log(objectStore)
+//     var objectStoreRequest = objectStore.clear();
 
-    objectStoreRequest.onsuccess = function() {
-        console.log("DB data deleted")
-    }
-}
+//     objectStoreRequest.onsuccess = function() {
+//         console.log("DB data deleted")
+//     }
+// }
+
+
 
 //Listener for the app coming back online
 window.addEventListener("online", checkDatabase);
