@@ -66,14 +66,14 @@ function populateChart() {
 
   myChart = new Chart(ctx, {
     type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        label: "Total Over Time",
-        fill: true,
-        backgroundColor: "#6666ff",
-        data
-      }]
+      data: {
+        labels,
+        datasets: [{
+            label: "Total Over Time",
+            fill: true,
+            backgroundColor: "#6666ff",
+            data
+        }]
     }
   });
 }
@@ -111,7 +111,7 @@ function sendTransaction(isAdding) {
   populateChart();
   populateTable();
   populateTotal();
-
+  
   // also send to server
   fetch("/api/transaction", {
     method: "POST",
@@ -121,52 +121,51 @@ function sendTransaction(isAdding) {
       "Content-Type": "application/json"
     }
   })
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      if (data.errors) {
-        errorEl.textContent = "Missing Information";
-      }
-      else {
-        // clear form
-        nameEl.value = "";
-        amountEl.value = "";
-      }
-    })
-    .catch(err => {
-      // fetch failed, so save in indexed db
-      saveRecord(transaction);
-
+  .then(response => {    
+    return response.json();
+  })
+  .then(data => {
+    if (data.errors) {
+      errorEl.textContent = "Missing Information";
+    }
+    else {
       // clear form
       nameEl.value = "";
       amountEl.value = "";
-    });
+    }
+  })
+  .catch(err => {
+    // fetch failed, so save in indexed db
+    saveRecord(transaction);
+
+    // clear form
+    nameEl.value = "";
+    amountEl.value = "";
+  });
 }
 
-document.querySelector("#add-btn").onclick = function () {
+document.querySelector("#add-btn").onclick = function() {
   sendTransaction(true);
 };
 
-document.querySelector("#sub-btn").onclick = function () {
+document.querySelector("#sub-btn").onclick = function() {
   sendTransaction(false);
 };
 
-document.querySelector("#clear-btn").onclick = function () {
-  clearButton()
+document.querySelector("#clear-btn").onclick = function() {
+  clearDatabase()
 };
-
 
 
 // Delete all 
 
-function clearButton () {
+function clearDatabase () {
   fetch("/api/transaction", {
       method: "DELETE"
     })
       .then(function(response) {
         if (response.status !== 200) {
-          console.log("Error! Status Code: " + response.status);
+          console.log("Looks like there was a problem. Status Code: " + response.status);
           return;
         }
         clearTransactions();
@@ -176,11 +175,8 @@ function clearButton () {
       });
   }
 
-function clearDatabase() {
+function clearTransactions() {
   const deleteTransactions = document.getElementById("tbody");
   deleteTransactions.innerHTML = "";
   location.reload();
 }
-
-
-
